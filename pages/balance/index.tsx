@@ -59,7 +59,7 @@ const Balance = () => {
           >
             <h3>¿Desea realizar otra operación?</h3>
           </Grid>
-          <Stack direction="row" spacing={8} justifyContent={"center"} mt={3}>
+          <Stack direction="row" spacing={15} justifyContent={"center"} mt={3}>
             <Button
               variant="contained"
               sx={{
