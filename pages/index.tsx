@@ -49,7 +49,8 @@ export default function Home() {
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <TextField
-                    placeholder="dni"
+                    focused
+                    placeholder="DNI"
                     value={field.dni}
                     id="outlined-basic"
                     name="dni"
@@ -57,17 +58,38 @@ export default function Home() {
                     onFocus={({ target }) => {
                       setInputFocus(target.name);
                     }}
+                    inputProps={{
+                      sx: {
+                        textAlign: "left",
+                        "&::placeholder": {
+                          textAlign: "center",
+
+                          color: "black",
+                          opacity: 1,
+                        },
+                      },
+                    }}
                   />
                 </Grid>
                 <Grid item xs={12}>
                   <TextField
-                    placeholder="clave"
+                    placeholder="Clave"
                     value={field.clave}
                     id="outlined-basic"
                     name="clave"
                     variant="outlined"
                     onFocus={({ target }) => {
                       setInputFocus(target.name);
+                    }}
+                    inputProps={{
+                      sx: {
+                        textAlign: "left",
+                        "&::placeholder": {
+                          textAlign: "center",
+                          color: "black",
+                          opacity: 1,
+                        },
+                      },
                     }}
                   />
                 </Grid>
