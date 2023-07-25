@@ -1,7 +1,7 @@
-import { Box, Button, Container, Grid, Stack, TextField } from "@mui/material";
+import { Box, Container, Grid } from "@mui/material";
 import React, { useEffect } from "react";
 
-const Cancelation = () => {
+const Success = () => {
   const user = "Carlos";
 
   useEffect(() => {
@@ -9,13 +9,15 @@ const Cancelation = () => {
       console.log("redirect");
     }, 5000);
   }, []);
-
+  const operacion = "Extracción";
+  const monto = "5000";
+  const cuenta = "xxxx-xxxxx-xxx";
   return (
     <>
       <Container>
         <Box
           sx={{
-            p: 4,
+            p: 6,
             width: { sm: 950 },
             height: { sm: 450 },
             border: "1px solid",
@@ -30,13 +32,18 @@ const Cancelation = () => {
             sx={{
               height: { sm: 350 },
               alignItems: "center",
+              textAlign: "center",
             }}
           >
-            <h1>La operación ha sido cancelada.</h1>
+            <h1>
+              Su {operacion} de monto de ${monto}, <br />
+              en la cuenta N*{cuenta},<br />
+              fue realizado con éxito.
+            </h1>
           </Grid>
         </Box>
       </Container>
     </>
   );
 };
-export default Cancelation;
+export default Success;
