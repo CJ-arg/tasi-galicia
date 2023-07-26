@@ -1,5 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable react-hooks/rules-of-hooks */
 import { Keybord } from "@/component/Keybord";
+import useTimeOut from "@/hooks/useTimeOut";
 import { Box, Button, Container, Grid, TextField } from "@mui/material";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -8,24 +12,35 @@ export default function Home() {
   const [inputFocus, setInputFocus] = useState<any>("");
   const [field, setField] = useState<any>(fieldInitialValue);
   const [continuar, setContinuar] = useState<any>(false);
-
-  const veinteSegundos = () => {
-    setTimeout(() => {
-      setField(fieldInitialValue), setContinuar(false);
-    }, 20000);
-  };
+  const router = useRouter();
+  const href = "/operation";
+  useTimeOut({
+    time: 10000,
+    dispatch: () => {
+      setField({ ...fieldInitialValue });
+    },
+    state: [field],
+  });
 
   useEffect(() => {
     JSON.stringify(field) === JSON.stringify(userMock)
       ? setContinuar(true)
       : null;
-    veinteSegundos();
-  }, [field, continuar, userMock]);
+  }, [field]);
 
   const handleChange = (value) => {
-    value !== "Borrar"
-      ? setField({ ...field, [inputFocus]: field[inputFocus] + value })
-      : (setField(fieldInitialValue), setContinuar(false));
+    setField({ ...field, [inputFocus]: field[inputFocus] + value });
+  };
+
+  const handleContinue = (e) => {
+    // alert("Continuar");
+    e.preventDefault();
+    router.push(href);
+  };
+
+  const handleBorrar = () => {
+    setField(fieldInitialValue);
+    setContinuar(false);
   };
 
   return (
@@ -103,7 +118,12 @@ export default function Home() {
               </Grid>
             </Grid>
             <Grid item xs={6}>
-              <Keybord handleChange={handleChange} continuar={continuar} />
+              <Keybord
+                handleChange={handleChange}
+                continuar={continuar}
+                handleContinue={handleContinue}
+                handleBorrar={handleBorrar}
+              />
             </Grid>
           </Grid>
         </Box>

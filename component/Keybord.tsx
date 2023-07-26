@@ -3,7 +3,12 @@ import React from "react";
 import FormRow from "./ButtonKeyboard";
 import ButtonKeyboard from "./ButtonKeyboard";
 
-export const Keybord = ({ handleChange, continuar }) => {
+export const Keybord = ({
+  handleChange,
+  continuar,
+  handleContinue,
+  handleBorrar,
+}) => {
   return (
     <Box
       sx={{
@@ -24,7 +29,12 @@ export const Keybord = ({ handleChange, continuar }) => {
           borderRadius: 0,
         }}
       >
-        <ButtonKeyboard handleChange={handleChange} continuar={continuar} />
+        <ButtonKeyboard
+          handleChange={handleChange}
+          continuar={continuar}
+          handleContinue={handleContinue}
+          handleBorrar={handleBorrar}
+        />
       </Grid>
     </Box>
   );
