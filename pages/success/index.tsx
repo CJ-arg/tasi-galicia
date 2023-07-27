@@ -1,14 +1,19 @@
 import { Box, Container, Grid } from "@mui/material";
 import React, { useEffect } from "react";
+import { useRouter } from "next/router";
+import useTimeOut from "@/hooks/useTimeOut";
 
 const Success = () => {
-  const user = "Carlos";
+  const router = useRouter();
+  const href = "/auth";
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("redirect");
-    }, 5000);
-  }, []);
+  useTimeOut({
+    time: 5000,
+    dispatch: () => {
+      router.push(href);
+    },
+  });
+
   const operacion = "Extracción";
   const monto = "5000";
   const cuenta = "xxxx-xxxxx-xxx";

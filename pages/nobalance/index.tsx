@@ -1,33 +1,20 @@
+import React from "react";
 import useTimeOut from "@/hooks/useTimeOut";
 import { Box, Button, Container, Grid, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 
-const Balance = () => {
-  const router = useRouter();
-  const hrefOperation = "/operation";
-  const hrefCancel = "/cancelation";
-  const hrefRedirect = "/auth";
-
-  useTimeOut({
-    time: 5000,
-    dispatch: () => {
-      router.push(hrefRedirect);
-    },
-  });
-
-  const saldo = "1.500.000";
-
+const NoBalance = () => {
   return (
     <>
-      <Container>
+      <Grid container alignItems="center" justifyContent="center">
         <Box
           sx={{
             p: 6,
-            width: { sm: 950 },
-            height: { sm: 450 },
+            width: { sm: 550 },
+            height: { sm: 250 },
             border: "1px solid",
-            mt: 6,
-            ml: 10,
+            mt: 20,
+            ml: 0,
           }}
         >
           <Grid
@@ -35,12 +22,15 @@ const Balance = () => {
             display={"flex"}
             justifyContent={"center"}
             sx={{
-              height: { sm: 100 },
+              height: { sm: 80 },
               alignItems: "center",
               textAlign: "center",
             }}
           >
-            <h1>Su saldo es</h1>
+            <h4>
+              Su saldo es insuficiente. Puede consultar su saldo, probar con
+              otro monto o cancelar la operacion
+            </h4>
           </Grid>
           <Grid
             item
@@ -50,51 +40,53 @@ const Balance = () => {
               alignItems: "center",
               textAlign: "center",
             }}
-          >
-            <h1>${saldo}</h1>
-          </Grid>
-          <Grid
-            item
-            display={"flex"}
-            justifyContent={"center"}
-            sx={{
-              alignItems: "center",
-              textAlign: "center",
-            }}
-          >
-            <h3>¿Desea realizar otra operación?</h3>
-          </Grid>
-          <Stack direction="row" spacing={15} justifyContent={"center"} mt={3}>
+          ></Grid>
+
+          <Stack direction="row" spacing={2} justifyContent={"center"} mt={4}>
             <Button
               variant="contained"
               sx={{
-                padding: 1,
-                width: 50,
+                width: 180,
+                height: 35,
                 borderRadius: 0,
               }}
               onClick={() => {
                 router.push(hrefOperation);
               }}
             >
-              SI
+              Cancelar
             </Button>
             <Button
               variant="contained"
               sx={{
-                padding: 1,
-                width: 50,
+                width: 180,
+                height: 35,
+                borderRadius: 0,
+              }}
+              onClick={() => {
+                router.push(hrefOperation);
+              }}
+            >
+              <small>Consultar saldo</small>
+            </Button>
+            <Button
+              variant="contained"
+              sx={{
+                width: 180,
+                height: 35,
                 borderRadius: 0,
               }}
               onClick={() => {
                 router.push(hrefCancel);
               }}
             >
-              NO
+              <small>Otro monto</small>
             </Button>
           </Stack>
         </Box>
-      </Container>
+      </Grid>
     </>
   );
 };
-export default Balance;
+
+export default NoBalance;
