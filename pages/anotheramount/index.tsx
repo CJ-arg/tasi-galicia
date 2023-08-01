@@ -6,6 +6,7 @@ import { Box, Button, Container, Grid, Stack } from "@mui/material";
 
 const AnotherAmount = () => {
   const [amount, setAmount] = useState("0");
+  const [continuar, setContinuar] = useState<any>(false);
   // useTimeOut({
   //   time: 20000,
   //   dispatch: () => {
@@ -17,13 +18,12 @@ const AnotherAmount = () => {
     amount.length > 1 && amount.charAt(0) === "0"
       ? setAmount(amount.substring(1))
       : null;
+    if (Number(amount) >= 1) setContinuar(true);
   }, [amount]);
 
-  console.log(amount);
   const handleChange = (value) => {
     setAmount(amount + value);
   };
-  console.log(amount.length, "length");
 
   const handleBorrar = () => {
     setAmount("0");
@@ -104,7 +104,7 @@ const AnotherAmount = () => {
             <Grid item xs={6}>
               <Keybord
                 handleChange={handleChange}
-                // continuar={continuar}
+                continuar={continuar}
                 // handleContinue={handleContinue}
                 handleBorrar={handleBorrar}
               />
