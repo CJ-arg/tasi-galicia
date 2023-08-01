@@ -85,7 +85,6 @@ export default function Home() {
                         textAlign: "left",
                         "&::placeholder": {
                           textAlign: "center",
-
                           color: "black",
                           opacity: 1,
                         },

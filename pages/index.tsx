@@ -8,7 +8,11 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const userMock = { dni: "111", clave: "111" };
 
-  const fieldInitialValue = { dni: "", clave: "" };
+  const fieldInitialValue = {
+    dni: "",
+    clave: "",
+    errors: { dni: "error DNI", clave: "error CLAVE" },
+  };
   const [inputFocus, setInputFocus] = useState<any>("");
   const [field, setField] = useState<any>(fieldInitialValue);
   const [continuar, setContinuar] = useState<any>(false);
@@ -39,6 +43,8 @@ export default function Home() {
     setField(fieldInitialValue);
     setContinuar(false);
   };
+  console.log(field.dni.length, "field.dni");
+  console.log(field.errors.dni);
 
   return (
     <>
@@ -68,6 +74,9 @@ export default function Home() {
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <TextField
+                    error={false}
+                    label="Error"
+                    helperText="DNI debe contener 7 u 8 numeros"
                     focused
                     placeholder="DNI"
                     value={field.dni}
@@ -90,6 +99,7 @@ export default function Home() {
                     }}
                   />
                 </Grid>
+
                 <Grid item xs={12}>
                   <TextField
                     placeholder="Clave"
