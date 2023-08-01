@@ -1,8 +1,18 @@
+import { useStore } from "@/store";
 import { Box, Button, Container, Grid, Stack, TextField } from "@mui/material";
+import { useRouter } from "next/router";
 import React from "react";
 
 const Operation = () => {
-  const user = "Carlos";
+  const { user } = useStore();
+  const router = useRouter();
+  const href = {
+    extraction: "/extraction",
+    cancel: "/cancelation",
+    deposit: "/deposit",
+    balance: "/balance",
+  };
+
   return (
     <>
       <Container>
@@ -17,12 +27,15 @@ const Operation = () => {
           }}
         >
           <Grid item xs={12} textAlign={"center"} mb={5}>
-            <h1>Bienvenido {user}</h1>
+            <h1>Bienvenido {user.name}</h1>
             <h3>¿Qué operación deseas realizar?</h3>
           </Grid>
 
           <Stack direction="row" spacing={8} justifyContent={"center"}>
             <Button
+              onClick={() => {
+                router.push(href.extraction);
+              }}
               variant="contained"
               sx={{
                 padding: 1,
@@ -34,6 +47,9 @@ const Operation = () => {
               Extraccion
             </Button>
             <Button
+              onClick={() => {
+                router.push(href.deposit);
+              }}
               variant="contained"
               sx={{
                 padding: 1,
@@ -47,6 +63,9 @@ const Operation = () => {
           </Stack>
           <Stack direction="row" spacing={8} justifyContent={"center"}>
             <Button
+              onClick={() => {
+                router.push(href.balance);
+              }}
               variant="contained"
               sx={{
                 mt: 3,
@@ -76,6 +95,9 @@ const Operation = () => {
                 width: 150,
                 height: 40,
                 borderRadius: 0,
+              }}
+              onClick={() => {
+                router.push(href.cancel);
               }}
             >
               Cancelar

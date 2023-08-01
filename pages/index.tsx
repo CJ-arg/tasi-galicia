@@ -2,11 +2,16 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Keybord } from "@/component/Keybord";
 import useTimeOut from "@/hooks/useTimeOut";
+import { getUser } from "@/services/user";
+import { useStore } from "@/store";
 import { Box, Button, Container, Grid, TextField } from "@mui/material";
+import { useRouter } from "next/router";
+
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const userMock = { dni: "111", clave: "111" };
+  const userMock = { dni: "1111", clave: "1111" };
+  const router = useRouter();
 
   const fieldInitialValue = {
     dni: "",
@@ -16,6 +21,9 @@ export default function Home() {
   const [inputFocus, setInputFocus] = useState<any>("");
   const [field, setField] = useState<any>(fieldInitialValue);
   const [continuar, setContinuar] = useState<any>(false);
+  const validDni = field.dni.length == 7 || field.dni.length == 8;
+  const validClave = field.clave.length == 4;
+  const { setUser } = useStore();
 
   useTimeOut({
     time: 20000,
@@ -26,25 +34,34 @@ export default function Home() {
   });
 
   useEffect(() => {
-    JSON.stringify(field) === JSON.stringify(userMock)
-      ? setContinuar(true)
-      : null;
+    // JSON.stringify(field) === JSON.stringify(userMock)
+    validDni && validClave ? setContinuar(true) : setContinuar(false);
+    console.log(validDni, validClave);
   }, [field]);
 
   const handleChange = (value) => {
     setField({ ...field, [inputFocus]: field[inputFocus] + value });
   };
 
-  const handleContinue = () => {
-    alert("Continuar");
+  const handleContinue = async (e) => {
+    // alert("Continuar");
+    e.preventDefault();
+    const users: any = await getUser();
+    const user = users.filter(
+      (i) => i.dni === field.dni && i.clave === field.clave
+    );
+    if (user.length) {
+      setUser(user[0]);
+      router.push("/operation");
+    } else {
+      alert("Usuario invalido");
+    }
   };
 
   const handleBorrar = () => {
     setField(fieldInitialValue);
     setContinuar(false);
   };
-  console.log(field.dni.length, "field.dni");
-  console.log(field.errors.dni);
 
   return (
     <>
@@ -74,9 +91,6 @@ export default function Home() {
               <Grid container spacing={1}>
                 <Grid item xs={12}>
                   <TextField
-                    error={false}
-                    label="Error"
-                    helperText="DNI debe contener 7 u 8 numeros"
                     focused
                     placeholder="DNI"
                     value={field.dni}

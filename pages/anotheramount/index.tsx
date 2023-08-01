@@ -3,30 +3,22 @@ import { Keybord } from "@/component/Keybord";
 
 import useTimeOut from "@/hooks/useTimeOut";
 import { Box, Button, Container, Grid, Stack } from "@mui/material";
+import { useRouter } from "next/router";
 
 const AnotherAmount = () => {
   const [amount, setAmount] = useState("0");
   const [continuar, setContinuar] = useState<any>(false);
-  // useTimeOut({
-  //   time: 20000,
-  //   dispatch: () => {
-  //     setField({ ...fieldInitialValue });
-  //   },
-  //   state: [field],
-  // });
-  useEffect(() => {
-    amount.length > 1 && amount.charAt(0) === "0"
-      ? setAmount(amount.substring(1))
-      : null;
-    if (Number(amount) >= 1) setContinuar(true);
-  }, [amount]);
+  const router = useRouter();
+  const href = "/cancelation";
 
   const handleChange = (value) => {
-    setAmount(amount + value);
+    setAmount(parseInt(amount + value).toString());
+    setContinuar(true);
   };
 
   const handleBorrar = () => {
     setAmount("0");
+    setContinuar(false);
   };
   return (
     <>
@@ -94,7 +86,7 @@ const AnotherAmount = () => {
                     borderRadius: 0,
                   }}
                   onClick={() => {
-                    router.push(hrefOperation);
+                    router.push(href);
                   }}
                 >
                   Cancelar

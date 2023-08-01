@@ -1,4 +1,5 @@
 import useTimeOut from "@/hooks/useTimeOut";
+import { useStore } from "@/store";
 import { Box, Button, Container, Grid, Stack } from "@mui/material";
 import { useRouter } from "next/router";
 
@@ -6,10 +7,10 @@ const Balance = () => {
   const router = useRouter();
   const hrefOperation = "/operation";
   const hrefCancel = "/cancelation";
-  const hrefRedirect = "/auth";
-
+  const hrefRedirect = "/";
+  const { user } = useStore();
   useTimeOut({
-    time: 5000,
+    time: 10000,
     dispatch: () => {
       router.push(hrefRedirect);
     },
@@ -51,7 +52,7 @@ const Balance = () => {
               textAlign: "center",
             }}
           >
-            <h1>${saldo}</h1>
+            <h1>${user.balance}</h1>
           </Grid>
           <Grid
             item

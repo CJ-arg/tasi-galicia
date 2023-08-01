@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { Keybord } from "@/component/Keybord";
 import useTimeOut from "@/hooks/useTimeOut";
+import { getUser } from "@/services/user";
 import { Box, Button, Container, Grid, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -32,9 +33,12 @@ export default function Home() {
     setField({ ...field, [inputFocus]: field[inputFocus] + value });
   };
 
-  const handleContinue = (e) => {
-    // alert("Continuar");
+  const handleContinue = async (e) => {
     e.preventDefault();
+    const users: any = await getUser();
+    const user = users.filter(
+      (i) => i.dni === field.dni && i.clave === field.clave
+    );
     router.push(href);
   };
 
