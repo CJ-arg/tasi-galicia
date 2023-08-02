@@ -1,5 +1,6 @@
-import React from "react";
-
+import React, { useEffect } from "react";
+import { useStore } from "@/store";
+import { useRouter } from "next/router";
 import {
   Box,
   Button,
@@ -13,6 +14,13 @@ import {
 } from "@mui/material";
 
 const Extraction = () => {
+  const { user } = useStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    Object.keys(user).length >= 1 ? user : router.push("/");
+  }, []);
+
   return (
     <>
       <Container>
@@ -99,7 +107,6 @@ const Extraction = () => {
                   <FormControl>
                     <RadioGroup
                       aria-labelledby="demo-radio-buttons-group-label"
-                      defaultValue="female"
                       name="radio-buttons-group"
                       sx={{
                         padding: 1,

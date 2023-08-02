@@ -2,10 +2,12 @@ import { Box, Container, Grid } from "@mui/material";
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import useTimeOut from "@/hooks/useTimeOut";
+import { useStore } from "@/store";
 
 const Success = () => {
   const router = useRouter();
-  const href = "/auth";
+  const href = "/";
+  const { user } = useStore();
 
   useTimeOut({
     time: 5000,
@@ -13,6 +15,9 @@ const Success = () => {
       router.push(href);
     },
   });
+  useEffect(() => {
+    Object.keys(user).length >= 1 ? user : router.push(href);
+  }, []);
 
   const operacion = "Extracción";
   const monto = "5000";

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Keybord } from "@/component/Keybord";
-
 import useTimeOut from "@/hooks/useTimeOut";
 import { Box, Button, Container, Grid, Stack } from "@mui/material";
 import { useRouter } from "next/router";
@@ -10,7 +9,6 @@ const AnotherAmount = () => {
   const [continuar, setContinuar] = useState<any>(false);
   const router = useRouter();
   const href = "/cancelation";
-
   const handleChange = (value) => {
     setAmount(parseInt(amount + value).toString());
     setContinuar(true);

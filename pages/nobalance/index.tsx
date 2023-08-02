@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useTimeOut from "@/hooks/useTimeOut";
 import { Box, Button, Container, Grid, Stack } from "@mui/material";
 import { useRouter } from "next/router";
+import { useStore } from "@/store";
 
 const NoBalance = () => {
+  const { user } = useStore();
+  const router = useRouter();
+  useEffect(() => {
+    Object.keys(user).length >= 1 ? user : router.push("/");
+  }, []);
+
   return (
     <>
       <Grid container alignItems="center" justifyContent="center">

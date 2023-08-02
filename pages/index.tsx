@@ -6,17 +6,14 @@ import { getUser } from "@/services/user";
 import { useStore } from "@/store";
 import { Box, Button, Container, Grid, TextField } from "@mui/material";
 import { useRouter } from "next/router";
-
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const userMock = { dni: "1111", clave: "1111" };
   const router = useRouter();
 
   const fieldInitialValue = {
     dni: "",
     clave: "",
-    errors: { dni: "error DNI", clave: "error CLAVE" },
   };
   const [inputFocus, setInputFocus] = useState<any>("");
   const [field, setField] = useState<any>(fieldInitialValue);
@@ -44,7 +41,6 @@ export default function Home() {
   };
 
   const handleContinue = async (e) => {
-    // alert("Continuar");
     e.preventDefault();
     const users: any = await getUser();
     const user = users.filter(
@@ -105,7 +101,6 @@ export default function Home() {
                         textAlign: "left",
                         "&::placeholder": {
                           textAlign: "center",
-
                           color: "black",
                           opacity: 1,
                         },
@@ -113,7 +108,6 @@ export default function Home() {
                     }}
                   />
                 </Grid>
-
                 <Grid item xs={12}>
                   <TextField
                     placeholder="Clave"

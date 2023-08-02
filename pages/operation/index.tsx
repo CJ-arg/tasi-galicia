@@ -1,7 +1,7 @@
 import { useStore } from "@/store";
 import { Box, Button, Container, Grid, Stack, TextField } from "@mui/material";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Operation = () => {
   const { user } = useStore();
@@ -12,6 +12,9 @@ const Operation = () => {
     deposit: "/deposit",
     balance: "/balance",
   };
+  useEffect(() => {
+    Object.keys(user).length >= 1 ? user : router.push("/");
+  }, []);
 
   return (
     <>

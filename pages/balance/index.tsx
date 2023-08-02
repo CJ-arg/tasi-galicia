@@ -1,7 +1,8 @@
 import useTimeOut from "@/hooks/useTimeOut";
-import { useStore } from "@/store";
 import { Box, Button, Container, Grid, Stack } from "@mui/material";
 import { useRouter } from "next/router";
+import { useStore } from "@/store";
+import { useEffect } from "react";
 
 const Balance = () => {
   const router = useRouter();
@@ -9,14 +10,16 @@ const Balance = () => {
   const hrefCancel = "/cancelation";
   const hrefRedirect = "/";
   const { user } = useStore();
+
   useTimeOut({
     time: 10000,
     dispatch: () => {
       router.push(hrefRedirect);
     },
   });
-
-  const saldo = "1.500.000";
+  useEffect(() => {
+    Object.keys(user).length >= 1 ? user : router.push(hrefRedirect);
+  }, []);
 
   return (
     <>

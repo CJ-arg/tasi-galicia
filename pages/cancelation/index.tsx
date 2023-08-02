@@ -2,11 +2,12 @@ import useTimeOut from "@/hooks/useTimeOut";
 import { Box, Button, Container, Grid, Stack, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
+import { useStore } from "@/store";
 
 const Cancelation = () => {
   const router = useRouter();
-  const user = "Carlos";
-  const href = "/auth";
+  const { user } = useStore();
+  const href = "/";
 
   useTimeOut({
     time: 5000,
@@ -14,6 +15,9 @@ const Cancelation = () => {
       router.push(href);
     },
   });
+  useEffect(() => {
+    Object.keys(user).length >= 1 ? user : router.push("/");
+  }, []);
 
   return (
     <>
