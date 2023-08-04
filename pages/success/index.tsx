@@ -7,17 +7,17 @@ import { useStore } from "@/store";
 const Success = () => {
   const router = useRouter();
   const href = "/";
-  const { user } = useStore();
+  const { user, amountOperation } = useStore();
 
   useTimeOut({
-    time: 5000,
+    time: 10000,
     dispatch: () => {
       router.push(href);
     },
   });
-  useEffect(() => {
-    Object.keys(user).length >= 1 ? user : router.push(href);
-  }, []);
+  // useEffect(() => {
+  //   Object.keys(user).length >= 1 ? user : router.push(href);
+  // }, []);
 
   const operacion = "Extracción";
   const monto = "5000";
@@ -46,8 +46,8 @@ const Success = () => {
             }}
           >
             <h1>
-              Su {operacion} de monto de ${monto}, <br />
-              en la cuenta N*{cuenta},<br />
+              Su {operacion} de monto de ${amountOperation}, <br />
+              en la cuenta N*{user.account},<br />
               fue realizado con éxito.
             </h1>
           </Grid>

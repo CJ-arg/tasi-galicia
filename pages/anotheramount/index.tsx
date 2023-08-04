@@ -3,12 +3,19 @@ import { Keybord } from "@/component/Keybord";
 import useTimeOut from "@/hooks/useTimeOut";
 import { Box, Button, Container, Grid, Stack } from "@mui/material";
 import { useRouter } from "next/router";
+import { useStore } from "@/store";
 
 const AnotherAmount = () => {
   const [amount, setAmount] = useState("0");
   const [continuar, setContinuar] = useState<any>(false);
   const router = useRouter();
   const href = "/cancelation";
+  const { user } = useStore();
+
+  useEffect(() => {
+    Object.keys(user).length >= 1 ? user : router.push("/");
+  }, []);
+
   const handleChange = (value) => {
     setAmount(parseInt(amount + value).toString());
     setContinuar(true);

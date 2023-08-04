@@ -31,9 +31,7 @@ export default function Home() {
   });
 
   useEffect(() => {
-    // JSON.stringify(field) === JSON.stringify(userMock)
     validDni && validClave ? setContinuar(true) : setContinuar(false);
-    console.log(validDni, validClave);
   }, [field]);
 
   const handleChange = (value) => {
@@ -50,7 +48,7 @@ export default function Home() {
       setUser(user[0]);
       router.push("/operation");
     } else {
-      alert("Usuario invalido");
+      alert("Datos Incorrectos");
     }
   };
 
