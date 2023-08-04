@@ -16,16 +16,24 @@ import {
 const Extraction = () => {
   const { user, setAmountOperation } = useStore();
   const router = useRouter();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [amount, setAmount] = useState(0);
+  const { balance } = user;
 
   const handleContinue = () => {
-    setAmountOperation("7500");
+    if (amount == 1) router.push("/anotheramount");
+    if (balance >= amount) console.log(balance, amount);
+    setAmountOperation(amount);
     router.push("/success");
   };
-  useEffect(() => {
-    Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
-  }, []);
-
+  const radio = (e) => {
+    e.preventDefault();
+    setAmount(parseInt(e.target.defaultValue));
+  };
+  // useEffect(() => {
+  //   Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
+  // }, []);
+  console.log(balance, amount);
   return (
     <>
       {!isLoading && (
@@ -63,13 +71,83 @@ const Extraction = () => {
             >
               <Box
                 sx={{
-                  width: { sm: 350 },
-                  height: { sm: 180 },
-                  border: "1px solid",
-                  padding: 2,
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  p: 1,
+                  m: 1,
+                  bgcolor: "background.paper",
+                  borderRadius: 1,
                 }}
               >
-                <Grid item xs={6}>
+                <Box
+                  sx={{
+                    width: { sm: 350 },
+                    height: { sm: 180 },
+                    border: "1px solid",
+                    padding: 2,
+                  }}
+                >
+                  <FormControl>
+                    <RadioGroup
+                      onChange={(e) => {
+                        radio(e);
+                      }}
+                      aria-labelledby="demo-radio-buttons-group-label"
+                      name="radio-buttons-group"
+                      sx={{
+                        padding: 1,
+                      }}
+                    >
+                      <FormControlLabel
+                        value="500"
+                        control={<Radio />}
+                        label="$500"
+                      />
+                      <FormControlLabel
+                        value="2000"
+                        control={<Radio />}
+                        label="$2.000"
+                      />
+                      <FormControlLabel
+                        value="3000"
+                        control={<Radio />}
+                        label="$3.000"
+                      />
+                      <Box
+                        sx={{
+                          position: "absolute" as "absolute",
+                          width: { sm: 350 },
+                          height: { sm: 180 },
+                          border: "1px solid",
+                          marginLeft: { sm: 55 },
+                          marginTop: { sm: -3.4 },
+                          padding: 3,
+                        }}
+                      >
+                        <Grid item xs={6}>
+                          <FormControlLabel
+                            value="5000"
+                            control={<Radio />}
+                            label="$5.000"
+                          />
+                          <FormControlLabel
+                            value="6000"
+                            control={<Radio />}
+                            label="$6.000"
+                          />
+                          <FormControlLabel
+                            value="1"
+                            control={<Radio />}
+                            label="Otro monto"
+                          />
+                        </Grid>
+                      </Box>
+                    </RadioGroup>
+                  </FormControl>
+                </Box>
+              </Box>
+
+              {/* <Grid item xs={6}>
                   <Grid item xs={12}>
                     <FormControl>
                       <RadioGroup
@@ -78,66 +156,10 @@ const Extraction = () => {
                         sx={{
                           padding: 1,
                         }}
-                      >
-                        <FormControlLabel
-                          value="500"
-                          control={<Radio />}
-                          label="$500"
-                        />
-                        <FormControlLabel
-                          value="2000"
-                          control={<Radio />}
-                          label="$2.000"
-                        />
-                        <FormControlLabel
-                          value="3000"
-                          control={<Radio />}
-                          label="$3.000"
-                        />
-                      </RadioGroup>
+                      ></RadioGroup>
                     </FormControl>
                   </Grid>
-                </Grid>
-              </Box>
-              <Box
-                sx={{
-                  width: { sm: 350 },
-                  height: { sm: 180 },
-                  border: "1px solid",
-                  padding: 2,
-                  marginBottom: 5,
-                }}
-              >
-                <Grid item xs={6}>
-                  <Grid item xs={12}>
-                    <FormControl>
-                      <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        name="radio-buttons-group"
-                        sx={{
-                          padding: 1,
-                        }}
-                      >
-                        <FormControlLabel
-                          value="5000"
-                          control={<Radio />}
-                          label="$5.000"
-                        />
-                        <FormControlLabel
-                          value="6000"
-                          control={<Radio />}
-                          label="$6.000"
-                        />
-                        <FormControlLabel
-                          value="other"
-                          control={<Radio />}
-                          label="Otro monto"
-                        />
-                      </RadioGroup>
-                    </FormControl>
-                  </Grid>
-                </Grid>
-              </Box>
+                </Grid> */}
             </Grid>
             <Stack direction="row" spacing={50} justifyContent={"center"}>
               <Button
@@ -153,6 +175,7 @@ const Extraction = () => {
               <Button
                 onClick={() => handleContinue()}
                 variant="contained"
+                disabled={!amount ? true : false}
                 sx={{
                   padding: 1,
                   width: 150,
