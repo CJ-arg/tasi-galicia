@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 
 const Extraction = () => {
-  const { user, setAmountOperation, setBalance } = useStore();
+  const { user, setAmountOperation } = useStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
@@ -26,12 +26,8 @@ const Extraction = () => {
     } else if (balance < amount) {
       router.push("/nobalance");
     } else {
-      console.log(balance, amount);
       setAmountOperation(amount);
-      setBalance(amount);
-
-      console.log(user, amount);
-      // router.push("/success");
+      router.push("/success");
     }
   };
   const radio = (e) => {
