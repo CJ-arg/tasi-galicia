@@ -34,9 +34,9 @@ const Extraction = () => {
     e.preventDefault();
     setAmount(parseInt(e.target.defaultValue));
   };
-  // useEffect(() => {
-  //   Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
-  // }, [amount]);
+  useEffect(() => {
+    Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
+  }, [amount]);
   console.log(balance, amount);
   return (
     <>
