@@ -104,7 +104,7 @@ const NoBalance = () => {
                   borderRadius: 0,
                 }}
                 onClick={() => {
-                  router.push(href.balance);
+                  router.push(href.anotherAmount);
                 }}
               >
                 <small>Otro monto</small>

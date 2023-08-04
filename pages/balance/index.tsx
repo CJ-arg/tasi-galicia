@@ -8,7 +8,7 @@ const Balance = () => {
   const router = useRouter();
   const hrefOperation = "/operation";
   const hrefCancel = "/cancelation";
-  const hrefRedirect = "/";
+  const hrefRedirect = "/auth";
   const { user } = useStore();
 
   useTimeOut({

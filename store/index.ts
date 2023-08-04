@@ -6,7 +6,7 @@ interface IUseStore {
   amount?: number;
   setUser: (value: any) => void;
   setAmountOperation: (value: number) => void;
-  setAmount: (value: any) => void;
+  setBalance: (value: any) => void;
 }
 
 const initialState = { user: {}, amountOperation: 0 };
@@ -15,5 +15,5 @@ export const useStore = create<IUseStore>((set) => ({
   setUser: (value) => set((state) => ({ ...state, user: value })),
   setAmountOperation: (value) =>
     set((state) => ({ ...state, amountOperation: value })),
-  setAmount: (value) => set((state) => ({ ...state, balance: value })),
+  setBalance: (value) => set((state) => ({ ...state, balance: value })),
 }));

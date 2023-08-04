@@ -12,6 +12,7 @@ import {
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import useTimeOut from "@/hooks/useTimeOut";
+import Cancelation from "../cancelation/index";
 
 const Operation = () => {
   const { user } = useStore();
@@ -23,9 +24,7 @@ const Operation = () => {
     balance: "/balance",
     home: "/auth",
   };
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+
   useEffect(() => {
     Object.keys(user).length >= 1 ? user : router.push("/auth");
   }, []);
@@ -36,19 +35,8 @@ const Operation = () => {
       router.push(href.home);
     },
   });
-  const style = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    border: "2px solid #000",
-    boxShadow: 24,
-    p: 4,
-  };
-  const openModal = () => {
-    console.log("abrir modal");
+  const handleCancelation = () => {
+    router.push(href.cancel);
   };
 
   return (
@@ -135,40 +123,13 @@ const Operation = () => {
                 borderRadius: 0,
               }}
               onClick={() => {
-                handleOpen();
+                handleCancelation();
               }}
             >
               Cancelar
             </Button>
           </Stack>
         </Box>
-        <Modal
-          open={open}
-          onClose={handleClose}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box sx={style}>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-              CONFIRMAR CANCELACION.
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{
-                mt: 3,
-                padding: 1,
-                width: 150,
-                height: 40,
-                borderRadius: 0,
-              }}
-              onClick={() => {
-                router.push(href.home);
-              }}
-            >
-              Confirmar
-            </Button>
-          </Box>
-        </Modal>
       </Container>
     </>
   );

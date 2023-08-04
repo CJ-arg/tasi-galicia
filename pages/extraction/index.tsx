@@ -14,17 +14,25 @@ import {
 } from "@mui/material";
 
 const Extraction = () => {
-  const { user, setAmountOperation } = useStore();
+  const { user, setAmountOperation, setBalance } = useStore();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const { balance } = user;
 
   const handleContinue = () => {
-    if (amount == 1) router.push("/anotheramount");
-    if (balance >= amount) console.log(balance, amount);
-    setAmountOperation(amount);
-    router.push("/success");
+    if (amount == 1) {
+      router.push("/anotheramount");
+    } else if (balance < amount) {
+      router.push("/nobalance");
+    } else {
+      console.log(balance, amount);
+      setAmountOperation(amount);
+      setBalance(amount);
+
+      console.log(user, amount);
+      // router.push("/success");
+    }
   };
   const radio = (e) => {
     e.preventDefault();
@@ -32,7 +40,7 @@ const Extraction = () => {
   };
   // useEffect(() => {
   //   Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
-  // }, []);
+  // }, [amount]);
   console.log(balance, amount);
   return (
     <>
@@ -146,23 +154,10 @@ const Extraction = () => {
                   </FormControl>
                 </Box>
               </Box>
-
-              {/* <Grid item xs={6}>
-                  <Grid item xs={12}>
-                    <FormControl>
-                      <RadioGroup
-                        aria-labelledby="demo-radio-buttons-group-label"
-                        name="radio-buttons-group"
-                        sx={{
-                          padding: 1,
-                        }}
-                      ></RadioGroup>
-                    </FormControl>
-                  </Grid>
-                </Grid> */}
             </Grid>
             <Stack direction="row" spacing={50} justifyContent={"center"}>
               <Button
+                onClick={() => router.push("/cancelation")}
                 variant="contained"
                 sx={{
                   padding: 1,
