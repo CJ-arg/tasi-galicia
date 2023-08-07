@@ -6,10 +6,10 @@ export const getUser = async () => {
   return user;
 };
 
-export const putExtraction = async function postJSON(data) {
+export const putExtraction = async (data) => {
   try {
-    const response = await fetch("http://localhost:5000/user/1", {
-      method: "PUT", // or 'PUT'
+    const response = await fetch(`http://localhost:5000/user/${data.id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -20,5 +20,3 @@ export const putExtraction = async function postJSON(data) {
     console.error("Error:", error);
   }
 };
-
-// postJSON(data);
