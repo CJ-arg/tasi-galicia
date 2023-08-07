@@ -27,7 +27,13 @@ const Extraction = () => {
       router.push("/nobalance");
     } else {
       setAmountOperation(amount);
-      router.push("/success");
+      router.push(
+        {
+          pathname: "/success",
+          query: { name: "Extracción" },
+        },
+        "/success"
+      );
     }
   };
   const radio = (e) => {
@@ -37,7 +43,7 @@ const Extraction = () => {
   useEffect(() => {
     Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
   }, [amount]);
-  console.log(balance, amount);
+
   return (
     <>
       {!isLoading && (

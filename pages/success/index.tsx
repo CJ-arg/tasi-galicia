@@ -8,6 +8,7 @@ const Success = () => {
   const router = useRouter();
   const href = "/";
   const { user, amountOperation } = useStore();
+  console.log(router.query.name);
 
   useTimeOut({
     time: 10000,
@@ -15,13 +16,12 @@ const Success = () => {
       router.push(href);
     },
   });
-  // useEffect(() => {
-  //   Object.keys(user).length >= 1 ? user : router.push(href);
-  // }, []);
+  useEffect(() => {
+    Object.keys(user).length >= 1 ? user : router.push(href);
+  }, []);
 
-  const operacion = "Extracción";
-  const monto = "5000";
-  const cuenta = "xxxx-xxxxx-xxx";
+  const operacion = router.query.name;
+
   return (
     <>
       <Container>

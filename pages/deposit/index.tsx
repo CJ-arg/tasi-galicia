@@ -17,6 +17,7 @@ const Deposit = () => {
   const [continuar, setContinuar] = useState<any>(false);
   const router = useRouter();
   const href = "/cancelation";
+
   const handleChange = (value) => {
     setAmount(parseInt(amount + value).toString());
     setContinuar(true);
@@ -67,7 +68,7 @@ const Deposit = () => {
                   <Stack>
                     <Typography
                       sx={{
-                        height: 50,
+                        height: 60,
                       }}
                     >
                       {" "}
@@ -75,7 +76,7 @@ const Deposit = () => {
                     </Typography>
                     <Typography
                       sx={{
-                        height: 50,
+                        height: 40,
                       }}
                     >
                       {" "}
@@ -83,14 +84,14 @@ const Deposit = () => {
                     </Typography>
                     <Typography
                       sx={{
-                        height: 50,
+                        height: 40,
                       }}
                     >
                       $200
                     </Typography>
                     <Typography
                       sx={{
-                        height: 50,
+                        height: 40,
                       }}
                     >
                       {" "}
@@ -98,7 +99,7 @@ const Deposit = () => {
                     </Typography>
                     <Typography
                       sx={{
-                        height: 50,
+                        height: 40,
                       }}
                     >
                       {" "}
@@ -147,7 +148,7 @@ const Deposit = () => {
                     <TextField
                       size="small"
                       placeholder="0"
-                      name="dni"
+                      name="100"
                       variant="outlined"
                       inputProps={{
                         sx: {
@@ -164,7 +165,7 @@ const Deposit = () => {
                       size="small"
                       placeholder="0"
                       id="outlined-basic"
-                      name="dni"
+                      name="200"
                       variant="outlined"
                       inputProps={{
                         sx: {
@@ -181,7 +182,7 @@ const Deposit = () => {
                       size="small"
                       placeholder="0"
                       id="outlined-basic"
-                      name="dni"
+                      name="500"
                       variant="outlined"
                       inputProps={{
                         sx: {
@@ -198,7 +199,7 @@ const Deposit = () => {
                       size="small"
                       placeholder="0"
                       id="outlined-basic"
-                      name="dni"
+                      name="1000"
                       variant="outlined"
                       inputProps={{
                         sx: {
