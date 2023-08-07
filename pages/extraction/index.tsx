@@ -12,6 +12,7 @@ import {
   RadioGroup,
   Stack,
 } from "@mui/material";
+import { putExtraction } from "@/services/user";
 
 const Extraction = () => {
   const { user, setAmountOperation } = useStore();
@@ -19,6 +20,7 @@ const Extraction = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const { balance } = user;
+  console.log(user);
 
   const handleContinue = () => {
     if (amount == 1) {
@@ -27,6 +29,9 @@ const Extraction = () => {
       router.push("/nobalance");
     } else {
       setAmountOperation(amount);
+      const newAmount = user.balance - amount;
+      let data = { ...user, balance: newAmount };
+      putExtraction(data);
       router.push(
         {
           pathname: "/success",
@@ -38,11 +43,13 @@ const Extraction = () => {
   };
   const radio = (e) => {
     e.preventDefault();
+    console.log(amount, balance);
+
     setAmount(parseInt(e.target.defaultValue));
   };
-  useEffect(() => {
-    Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
-  }, [amount]);
+  // useEffect(() => {
+  //   Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
+  // }, [amount]);
 
   return (
     <>
