@@ -20,7 +20,6 @@ const Extraction = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [amount, setAmount] = useState(0);
   const { balance } = user;
-  console.log(user);
 
   const handleContinue = () => {
     if (amount == 1) {
@@ -43,13 +42,11 @@ const Extraction = () => {
   };
   const radio = (e) => {
     e.preventDefault();
-    console.log(amount, balance);
-
     setAmount(parseInt(e.target.defaultValue));
   };
-  // useEffect(() => {
-  //   Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
-  // }, [amount]);
+  useEffect(() => {
+    Object.keys(user).length > 0 ? setIsLoading(false) : router.push("/");
+  }, [amount]);
 
   return (
     <>

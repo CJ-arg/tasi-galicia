@@ -7,10 +7,6 @@ export const getUser = async () => {
 };
 
 export const putExtraction = async function postJSON(data) {
-  console.log("se disparo put");
-
-  console.log(data, "seria el monto");
-
   try {
     const response = await fetch("http://localhost:5000/user/1", {
       method: "PUT", // or 'PUT'
@@ -19,9 +15,7 @@ export const putExtraction = async function postJSON(data) {
       },
       body: JSON.stringify(data),
     });
-
     const result = await response.json();
-    console.log("Success:", result);
   } catch (error) {
     console.error("Error:", error);
   }
