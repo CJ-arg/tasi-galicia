@@ -11,33 +11,50 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
+import { log } from "console";
 
 const Deposit = () => {
   const fieldInitialValue = {
-    cien: "",
-    docientos: "",
-    quinientos: "",
-    mil: "",
+    cien: 0,
+    docientos: 0,
+    quinientos: 0,
+    mil: 0,
+  };
+  const valorNumerico = {
+    cien: 100,
+    docientos: 200,
+    quinientos: 500,
+    mil: 1000,
   };
   const [inputFocus, setInputFocus] = useState<any>("");
   const [field, setField] = useState<any>(fieldInitialValue);
-  const [amount, setAmount] = useState("0");
+  const [nuemrico, setNumerico] = useState<any>(valorNumerico);
+  const [amount, setAmount] = useState(0);
   const [continuar, setContinuar] = useState<any>(false);
   const router = useRouter();
   const href = "/cancelation";
 
-  console.log(field, "if", inputFocus);
-  console.log(field[inputFocus].length);
-
   const handleChange = (value) => {
-    setField({ ...field, [inputFocus]: field[inputFocus] + value });
+    console.log("vn", valorNumerico[inputFocus]);
 
-    if (field[inputFocus].length > 4) return;
+    console.log("va", typeof value, value);
+    amount == 0
+      ? setField({ ...field, [inputFocus]: (field[inputFocus] = value) })
+      : setField({ ...field, [inputFocus]: field[inputFocus] + value });
+
     setContinuar(true);
   };
+  useEffect(() => {
+    field[inputFocus] &&
+      setAmount(parseInt(field[inputFocus]) * valorNumerico[inputFocus]);
+    console.log("paso", field[inputFocus]);
+  }, [field]);
+
+  console.log("field libre", field[inputFocus], typeof field);
+  console.log("amount inicio", amount, typeof amount);
 
   const handleBorrar = () => {
-    setAmount("0");
+    setAmount(0);
     setContinuar(false);
   };
   return (
