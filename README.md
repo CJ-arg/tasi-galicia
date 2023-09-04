@@ -36,3 +36,26 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+BACKEND RUN EXAMPLE
+$ npm run back:mock
+
+> tasi-galicia@0.1.0 back:mock
+> json-server --watch mocks/db.json --port 5000
+> \{^\_^}/ hi!
+> Loading mocks/db.json
+> Done
+> Resources
+> http://localhost:5000/user
+> Home
+> http://localhost:5000
+> Type s + enter at any time to create a snapshot of the database
+> Watching...
+
+FRONTEND RUN EXAMPLE
+$ npm run dev
+
+> tasi-galicia@0.1.0 dev
+> next dev
+
+- ready started server on 0.0.0.0:3000, url: http://localhost:3000
