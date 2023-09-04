@@ -13,13 +13,26 @@ import {
 import { useRouter } from "next/router";
 
 const Deposit = () => {
+  const fieldInitialValue = {
+    cien: "",
+    docientos: "",
+    quinientos: "",
+    mil: "",
+  };
+  const [inputFocus, setInputFocus] = useState<any>("");
+  const [field, setField] = useState<any>(fieldInitialValue);
   const [amount, setAmount] = useState("0");
   const [continuar, setContinuar] = useState<any>(false);
   const router = useRouter();
   const href = "/cancelation";
 
+  console.log(field, "if", inputFocus);
+  console.log(field[inputFocus].length);
+
   const handleChange = (value) => {
-    setAmount(parseInt(amount + value).toString());
+    setField({ ...field, [inputFocus]: field[inputFocus] + value });
+
+    if (field[inputFocus].length > 4) return;
     setContinuar(true);
   };
 
@@ -79,7 +92,6 @@ const Deposit = () => {
                         height: 40,
                       }}
                     >
-                      {" "}
                       $100
                     </Typography>
                     <Typography
@@ -146,9 +158,14 @@ const Deposit = () => {
                       <small>CANTIDAD</small>
                     </Typography>
                     <TextField
+                      focused
+                      onFocus={({ target }) => {
+                        setInputFocus(target.name);
+                      }}
                       size="small"
+                      value={field.cien}
                       placeholder="0"
-                      name="100"
+                      name="cien"
                       variant="outlined"
                       inputProps={{
                         sx: {
@@ -162,10 +179,14 @@ const Deposit = () => {
                       }}
                     />
                     <TextField
+                      onFocus={({ target }) => {
+                        setInputFocus(target.name);
+                      }}
+                      value={field.docientos}
                       size="small"
                       placeholder="0"
                       id="outlined-basic"
-                      name="200"
+                      name="docientos"
                       variant="outlined"
                       inputProps={{
                         sx: {
@@ -179,10 +200,14 @@ const Deposit = () => {
                       }}
                     />
                     <TextField
+                      onFocus={({ target }) => {
+                        setInputFocus(target.name);
+                      }}
                       size="small"
                       placeholder="0"
+                      value={field.quinientos}
                       id="outlined-basic"
-                      name="500"
+                      name="quinientos"
                       variant="outlined"
                       inputProps={{
                         sx: {
@@ -196,10 +221,14 @@ const Deposit = () => {
                       }}
                     />
                     <TextField
+                      onFocus={({ target }) => {
+                        setInputFocus(target.name);
+                      }}
                       size="small"
                       placeholder="0"
+                      value={field.mil}
                       id="outlined-basic"
-                      name="1000"
+                      name="mil"
                       variant="outlined"
                       inputProps={{
                         sx: {
