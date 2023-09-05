@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Keybord } from "@/component/Keybord";
 import useTimeOut from "@/hooks/useTimeOut";
+import { useStore } from "@/store";
+import { useMemo } from "react";
 import {
   Box,
   Button,
@@ -11,7 +13,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useRouter } from "next/router";
-import { log } from "console";
+import { putExtraction } from "@/services/user";
 
 const Deposit = () => {
   const fieldInitialValue = {
@@ -26,37 +28,51 @@ const Deposit = () => {
     quinientos: 500,
     mil: 1000,
   };
+  const { user, setAmountOperation } = useStore();
   const [inputFocus, setInputFocus] = useState<any>("");
   const [field, setField] = useState<any>(fieldInitialValue);
-  const [nuemrico, setNumerico] = useState<any>(valorNumerico);
   const [amount, setAmount] = useState(0);
+  const [totalAmount, setTotalAmount] = useState(0);
   const [continuar, setContinuar] = useState<any>(false);
   const router = useRouter();
   const href = "/cancelation";
+  const { balance } = user;
+  let acum = 0;
+  const calcualte = () => {
+    let total = 0;
+    for (const property in field) {
+      total = field[property] * valorNumerico[property];
+      acum = acum + total;
+    }
+  };
 
   const handleChange = (value) => {
-    console.log("vn", valorNumerico[inputFocus]);
-
-    console.log("va", typeof value, value);
-    amount == 0
+    field[inputFocus] == 0
       ? setField({ ...field, [inputFocus]: (field[inputFocus] = value) })
       : setField({ ...field, [inputFocus]: field[inputFocus] + value });
-
     setContinuar(true);
+  };
+  const handleContinue = () => {
+    setAmountOperation(acum);
+    const newAmount = user.balance + amount;
+    let data = { ...user, balance: newAmount };
+    putExtraction(data);
   };
   useEffect(() => {
     field[inputFocus] &&
       setAmount(parseInt(field[inputFocus]) * valorNumerico[inputFocus]);
-    console.log("paso", field[inputFocus]);
   }, [field]);
 
-  console.log("field libre", field[inputFocus], typeof field);
-  console.log("amount inicio", amount, typeof amount);
-
   const handleBorrar = () => {
-    setAmount(0);
+    acum = 0;
+    setField(fieldInitialValue);
+    setTotalAmount(acum);
     setContinuar(false);
+    console.log("paso", acum, amount);
   };
+  calcualte();
+  useMemo(() => setTotalAmount(acum), [amount]);
+  console.log("continue ", acum, "monto final", user);
   return (
     <>
       <Container>
@@ -283,14 +299,14 @@ const Deposit = () => {
                   }}
                 >
                   <Typography variant="h5" gutterBottom>
-                    ${amount}
+                    ${totalAmount}
                   </Typography>
                 </Grid>
               </Grid>
               <Keybord
                 handleChange={handleChange}
                 continuar={continuar}
-                // handleContinue={handleContinue}
+                handleContinue={handleContinue}
                 handleBorrar={handleBorrar}
               />
             </Grid>
